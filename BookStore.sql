@@ -30,3 +30,15 @@ Begin
     Insert into Users (FullName,Email,Password,MobileNumber)         
     Values (@FullName,@Email,@Password,@MobileNumber);        
 End
+
+---Create procedured for User Login
+create procedure spLogin
+(
+@Email varchar(255),
+@Password varchar(255)
+)
+as
+begin
+select * from Users
+where Email = @Email and Password = @Password
+End;

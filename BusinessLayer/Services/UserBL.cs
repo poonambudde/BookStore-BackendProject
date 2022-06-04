@@ -23,5 +23,17 @@ namespace BusinessLayer
                 throw;
             }
         }
+
+        public UserLogin Login(string Email, string Password)
+        {
+            try
+            {
+                return this.userRL.Login(Email, Password);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
