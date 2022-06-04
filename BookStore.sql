@@ -32,7 +32,7 @@ Begin
 End
 
 ---Create procedured for User Login
-create procedure spLogin
+create procedure spUserLogin
 (
 @Email varchar(255),
 @Password varchar(255)
