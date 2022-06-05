@@ -55,17 +55,3 @@ set Password = 'Null'
 where Email = @Email;
 select * from Users where Email = @Email;
 End;
-
----create procedure for user reset password 
-create procedure spUserResetPassword
-(
-@Email varchar(Max),
-@Password varchar(Max)
-)
-AS
-BEGIN
-UPDATE Users 
-SET 
-Password = @Password 
-WHERE Email = @Email;
-End;
