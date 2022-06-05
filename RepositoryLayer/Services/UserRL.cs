@@ -75,9 +75,9 @@ namespace RepositoryLayer
                     UserLogin user = new UserLogin();
                     while (rdr.Read())
                     {
-                        user.Email = Convert.ToString(rdr["Email"] );
+                        user.Email = Convert.ToString(rdr["Email"]);
                         user.Password = Convert.ToString(rdr["Password"]);
-                        UserId = Convert.ToInt32(rdr["UserId"] );
+                        UserId = Convert.ToInt32(rdr["UserId"]);
                     }
                     this.sqlConnection.Close();
                     user.Token = this.GenerateJWTToken(Email, UserId);
@@ -100,14 +100,13 @@ namespace RepositoryLayer
         }
 
         // Generate JWT token
-        public string GenerateJWTToken(string Email, long userId)
+        public string GenerateJWTToken(string email, long userId)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["Jwt:SecretKey"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
-               
-                new Claim("Email", Email),
+                new Claim("Email", email),
                 new Claim("Id", userId.ToString()),
             };
             var token = new JwtSecurityToken(
@@ -117,6 +116,48 @@ namespace RepositoryLayer
             expires: DateTime.Now.AddMinutes(60),
             signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public string ForgotPassword(string email)
+        {
+            try
+            {
+                this.sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStore"]);
+                SqlCommand com = new SqlCommand("spUserForgotPassword", this.sqlConnection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                com.Parameters.AddWithValue("@Email", email);
+                this.sqlConnection.Open();
+                SqlDataReader rd = com.ExecuteReader();
+                if (rd.HasRows)
+                {
+                    int userId = 0;
+                    while (rd.Read())
+                    {
+                        email = Convert.ToString(rd["Email"]);
+                        userId = Convert.ToInt32(rd["UserId"]);
+                    }
+
+                    this.sqlConnection.Close();
+                    var token = this.GenerateJWTToken(email, userId);
+                    new EmailModel().Sender(token);
+                    return token;
+                }
+                else
+                {
+                    this.sqlConnection.Close();
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
         }
     }
 }

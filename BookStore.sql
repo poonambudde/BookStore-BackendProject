@@ -32,7 +32,7 @@ Begin
 End
 
 ---Create procedured for User Login
-create procedure spLogin
+create procedure spUserLogin
 (
 @Email varchar(255),
 @Password varchar(255)
@@ -41,4 +41,31 @@ as
 begin
 select * from Users
 where Email = @Email and Password = @Password
+End;
+
+---Create procedured for User Forgot Password---------------
+create procedure spUserForgotPassword
+(
+@Email varchar(Max)
+)
+as
+begin
+Update Users
+set Password = 'Null'
+where Email = @Email;
+select * from Users where Email = @Email;
+End;
+
+---create procedure for user reset password 
+create procedure spUserResetPassword
+(
+@Email varchar(Max),
+@Password varchar(Max)
+)
+AS
+BEGIN
+UPDATE Users 
+SET 
+Password = @Password 
+WHERE Email = @Email;
 End;

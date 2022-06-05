@@ -9,5 +9,6 @@ namespace BusinessLayer.Interfaces
     {
         public UserModel Register (UserModel user);
         public UserLogin Login (string Email, string Password);
+        public string ForgotPassword(string email);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interfaces;
 using DatabaseLayer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -47,9 +48,30 @@ namespace BookStoreApp.Controllers
                 else
                     return this.BadRequest(new { success = false, message = "Login Failed", data = result });
             }
-            catch (Exception )
+            catch (Exception)
             {
                 throw;
+            }
+        }
+
+        [HttpPost("ForgotPassword")]
+        public IActionResult ForgotPassword(string email)
+        {
+            try
+            {
+                var forgotPasswordToken = this.userBL.ForgotPassword(email);
+                if (forgotPasswordToken != null)
+                {
+                    return this.Ok(new { Success = true, message = " Mail Sent Successful", Response = forgotPasswordToken });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "Enter Valid Email" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
     }
