@@ -47,5 +47,17 @@ namespace BusinessLayer
                 throw ex;
             }
         }
+
+        public bool ResetPassword(string email, string newPassword, string confirmPassword)
+        {
+            try
+            {
+                return this.userRL.ResetPassword(email, newPassword, confirmPassword);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
