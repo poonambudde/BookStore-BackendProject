@@ -74,5 +74,27 @@ namespace BookStoreApp.Controllers
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
         }
+
+        [Authorize]
+        [HttpPut("ResetPassword")]
+        public IActionResult ResetPassword(string newPassword, string confirmPassword)
+        {
+            try
+            {
+                var email = User.FindFirst("Email").Value.ToString();
+                if (this.userBL.ResetPassword(email, newPassword, confirmPassword))
+                {
+                    return this.Ok(new { Success = true, message = " Password Changed Successfully " });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = " Password Change Unsuccessfully " });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
     }
 }
