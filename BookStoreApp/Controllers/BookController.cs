@@ -57,7 +57,26 @@ namespace BookStoreApp.Controllers
             {
                 return this.BadRequest(new { Success = false, message = ex.Message });
             }
+        }
 
+        [HttpDelete("DeleteBook/{BookId}")]
+        public IActionResult DeleteBook(int BookId)
+        {
+            try
+            {
+                if (this.bookBL.DeleteBook(BookId))
+                {
+                    return this.Ok(new { Success = true, message = "Book Deleted Sucessfully" });
+                }
+                else
+                {
+                    return this.BadRequest(new { Success = false, message = "Enter Valid Book Id" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
         }
 
         [HttpGet("GetAllBook")]

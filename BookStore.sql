@@ -126,3 +126,14 @@ as
 BEGIN
 	select * from BookTable;
 End;
+
+---Procedure to deletebook
+create procedure spDeleteBook
+(
+@BookId int
+)
+as
+BEGIN
+Delete BookTable 
+where BookId = @BookId;
+End;
