@@ -108,15 +108,3 @@ values (@BookName, @AuthorName, @TotalRating, @RatingCount ,@OriginalPrice, @Dis
 @BookDetails, @BookImage, @BookQuantity
 );
 End;
-
----create procedure to getbookbybookid
-create procedure spGetBookByBookId
-(
-@BookId int
-)
-as
-BEGIN
-select * from BookTable
-where BookId = @BookId;
-End;
-
