@@ -12,11 +12,11 @@ namespace BusinessLayer
         {
             this.userRL = userRL;
         }
-        public UserModel Register(UserModel user)
+        public UserModel AddUser(UserModel user)
         {
             try
             {
-                return this.userRL.Register(user);
+                return this.userRL.AddUser(user);
             }
             catch (Exception)
             {
@@ -24,11 +24,11 @@ namespace BusinessLayer
             }
         }
 
-        public UserLogin Login(string Email, string Password)
+        public UserLogin LoginUser(string Email, string Password)
         {
             try
             {
-                return this.userRL.Login(Email, Password);
+                return this.userRL.LoginUser(Email, Password);
             }
             catch (Exception)
             {

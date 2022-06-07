@@ -1,5 +1,6 @@
 using BusinessLayer;
 using BusinessLayer.Interfaces;
+using BusinessLayer.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RepositoryLayer;
 using RepositoryLayer.Interfaces;
+using RepositoryLayer.Services;
 using System;
 using System.Text;
 
@@ -28,14 +30,12 @@ namespace BookStoreApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddMvc();
-
-            
-
             services.AddTransient<IUserRL, UserRL>();
             services.AddTransient<IUserBL, UserBL>();
+            services.AddTransient<IBookBL, BookBL>();
+            services.AddTransient<IBookRL, BookRL>();
 
-          
+            services.AddMvc();
 
             // Adding Swagger 
             services.AddSwaggerGen(c =>
@@ -80,14 +80,9 @@ namespace BookStoreApp
                   ValidateAudience = false,
                   ValidateLifetime = false,
                   ValidateIssuerSigningKey = true,
-                  IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])) // Configuration["JwtToken:SecretKey"]
+                  IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"]))
               };
           });
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-                options.AddPolicy("RequireUserRole", policy => policy.RequireRole("User"));
-            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -100,7 +95,7 @@ namespace BookStoreApp
             app.UseRouting();
             
             app.UseAuthentication();
-            app.UseAuthorization();
+           // app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
