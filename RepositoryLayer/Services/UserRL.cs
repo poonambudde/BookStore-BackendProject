@@ -21,11 +21,12 @@ namespace RepositoryLayer
         private IConfiguration Configuration { get; }
 
         // Registers the specified user.
-        public UserModel Register(UserModel user)
+        public UserModel AddUser(UserModel user)
         {
             try
             {
                 this.sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStore"]);
+                string Password = EncryptedPassword.EncodePasswordToBase64(user.Password);
                 SqlCommand cmd = new SqlCommand("spUserRegister", this.sqlConnection)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -47,6 +48,9 @@ namespace RepositoryLayer
                 }
             }
             catch (Exception)
+
+
+
             {
                 throw;
             }
@@ -56,11 +60,12 @@ namespace RepositoryLayer
             }
         }
 
-        public UserLogin Login(string Email, string Password)
+        public UserLogin LoginUser(string Email, string Password)
         {
             try
             {
                 this.sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStore"]);
+                //string Password = EncryptedPassword.EncodePasswordToBase64(user.Password);
                 SqlCommand com = new SqlCommand("spUserLogin", this.sqlConnection)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -167,6 +172,7 @@ namespace RepositoryLayer
                 if (newPassword == confirmPassword)
                 {
                     this.sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStore"]);
+                    //string Password = EncryptedPassword.EncodePasswordToBase64(user.Password);
                     SqlCommand com = new SqlCommand("spUserResetPassword", this.sqlConnection)
                     {
                         CommandType = CommandType.StoredProcedure

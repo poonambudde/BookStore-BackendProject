@@ -7,8 +7,8 @@ namespace RepositoryLayer.Interfaces
 {
     public interface IUserRL
     {
-        public UserModel Register(UserModel user);
-        public UserLogin Login(string Email, string Password);
+        public UserModel AddUser(UserModel user);
+        public UserLogin LoginUser(string Email, string Password);
         public string ForgotPassword(string email);
         public bool ResetPassword(string email, string newPassword, string confirmPassword);
     }

@@ -20,11 +20,11 @@ namespace BookStoreApp.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(UserModel user)
+        public IActionResult AddUser(UserModel user)
         {
             try
             {
-                UserModel userData = this.userBL.Register(user);
+                UserModel userData = this.userBL.AddUser(user);
                 if (userData != null)
                 {
                     return this.Ok(new { Success = true, message = "User Added Sucessfully", Response = userData });
@@ -38,11 +38,11 @@ namespace BookStoreApp.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(string Email, string Password)
+        public IActionResult LoginUser(string Email, string Password)
         {
             try
             {
-                var result = this.userBL.Login(Email, Password);
+                var result = this.userBL.LoginUser(Email, Password);
                 if (result != null)
                     return this.Ok(new { success = true, message = "Login Successful", data = result });
                 else
