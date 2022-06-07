@@ -79,6 +79,27 @@ namespace BookStoreApp.Controllers
             }
         }
 
+        [HttpPost("UpdateBook/{BookId}")]
+        public IActionResult UpdateBook(int BookId, BookModel updateBook)
+        {
+            try
+            {
+                var result = this.bookBL.UpdateBook(BookId, updateBook);
+                if (result.Equals(true))
+                {
+                    return this.Ok(new { success = true, message = $"Book updated Successfully ", response = updateBook });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.BadRequest(new { Success = false, message = ex.Message });
+            }
+        }
+
         [HttpGet("GetAllBook")]
         public IActionResult GetAllBooks()
         {

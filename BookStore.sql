@@ -120,13 +120,6 @@ select * from BookTable
 where BookId = @BookId;
 End;
 
--- create procedure to get all book 
-create procedure spGetAllBook
-as
-BEGIN
-	select * from BookTable;
-End;
-
 ---Procedure to deletebook
 create procedure spDeleteBook
 (
@@ -136,4 +129,40 @@ as
 BEGIN
 Delete BookTable 
 where BookId = @BookId;
+End;
+
+--procedure to updatebook
+create procedure spUpdateBook
+(
+@BookId int,
+@BookName varchar(255),
+@AuthorName varchar(255),
+@TotalRating int,
+@RatingCount int,
+@OriginalPrice Decimal,
+@DiscountPrice Decimal,
+@BookDetails varchar(255),
+@BookImage varchar(255),
+@BookQuantity int
+
+)
+as
+BEGIN
+Update BookTable set BookName = @BookName, 
+AuthorName = @AuthorName,
+TotalRating = @TotalRating,
+RatingCount = @RatingCount,
+OriginalPrice= @OriginalPrice,
+DiscountPrice = @DiscountPrice,
+BookDetails = @BookDetails,
+BookImage =@BookImage,
+BookQuantity = @BookQuantity
+where BookId = @BookId;
+End;
+
+-- create procedure to get all book 
+create procedure spGetAllBook
+as
+BEGIN
+	select * from BookTable;
 End;
