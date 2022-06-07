@@ -26,7 +26,6 @@ namespace RepositoryLayer
             try
             {
                 this.sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStore"]);
-                string Password = EncryptedPassword.EncodePasswordToBase64(user.Password);
                 SqlCommand cmd = new SqlCommand("spUserRegister", this.sqlConnection)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -65,7 +64,6 @@ namespace RepositoryLayer
             try
             {
                 this.sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStore"]);
-                //string Password = EncryptedPassword.EncodePasswordToBase64(user.Password);
                 SqlCommand com = new SqlCommand("spUserLogin", this.sqlConnection)
                 {
                     CommandType = CommandType.StoredProcedure
@@ -172,7 +170,6 @@ namespace RepositoryLayer
                 if (newPassword == confirmPassword)
                 {
                     this.sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStore"]);
-                    //string Password = EncryptedPassword.EncodePasswordToBase64(user.Password);
                     SqlCommand com = new SqlCommand("spUserResetPassword", this.sqlConnection)
                     {
                         CommandType = CommandType.StoredProcedure
