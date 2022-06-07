@@ -88,7 +88,7 @@ select *from BookTable;
 
 ----stored procedures for Book Api
 ---procedured to add book
-Alter procedure SPAddBook
+create procedure SPAddBook
 (
 @BookName varchar(255),
 @AuthorName varchar(255),
@@ -107,4 +107,23 @@ DiscountPrice, BookDetails, BookImage, BookQuantity)
 values (@BookName, @AuthorName, @TotalRating, @RatingCount ,@OriginalPrice, @DiscountPrice,
 @BookDetails, @BookImage, @BookQuantity
 );
+End;
+
+
+---create procedure to getbookbybookid
+create procedure spGetBookByBookId
+(
+@BookId int
+)
+as
+BEGIN
+select * from BookTable
+where BookId = @BookId;
+End;
+
+-- create procedure to get all book 
+create procedure spGetAllBook
+as
+BEGIN
+	select * from BookTable;
 End;
