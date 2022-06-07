@@ -138,7 +138,3 @@ as
 BEGIN
 	select * from BookTable;
 End;
-
-
-
-
