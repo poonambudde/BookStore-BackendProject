@@ -109,6 +109,7 @@ values (@BookName, @AuthorName, @TotalRating, @RatingCount ,@OriginalPrice, @Dis
 );
 End;
 
+
 ---create procedure to getbookbybookid
 create procedure spGetBookByBookId
 (
