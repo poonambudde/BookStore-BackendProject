@@ -38,7 +38,6 @@ namespace RepositoryLayer.Services
                 cmd.Parameters.AddWithValue("@BookQuantity", book.BookQuantity);
                 this.sqlConnection.Open();
                 cmd.ExecuteNonQuery();
-                this.sqlConnection.Close();
                 return book;     
             }
             catch (Exception)
@@ -50,6 +49,44 @@ namespace RepositoryLayer.Services
                 this.sqlConnection.Close();
             }
         }
+
+        public BookModel GetBookByBookId(int BookId)
+        {
+            try
+            {
+                this.sqlConnection = new SqlConnection(this.Configuration["ConnectionString:BookStore"]);
+                SqlCommand cmd = new SqlCommand("spGetBookByBookId", this.sqlConnection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.AddWithValue("@BookId", BookId);
+                this.sqlConnection.Open();
+                BookModel bookModel = new BookModel();
+                SqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+
+                bookModel.BookName = reader["BookName"].ToString();
+                bookModel.AuthorName = reader["AuthorName"].ToString();
+                bookModel.TotalRating = Convert.ToInt32(reader["TotalRating"]);
+                bookModel.RatingCount = Convert.ToInt32(reader["RatingCount"]);
+                bookModel.OriginalPrice = Convert.ToInt32(reader["OriginalPrice"]);
+                bookModel.DiscountPrice = Convert.ToInt32(reader["DiscountPrice"]);
+                bookModel.BookDetails = reader["BookDetails"].ToString();
+                bookModel.BookImage = reader["BookImage"].ToString();
+                bookModel.BookQuantity = Convert.ToInt32(reader["BookQuantity"]);
+                return bookModel;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
+
 
     }
 }
