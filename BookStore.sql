@@ -121,9 +121,24 @@ select * from BookTable
 where BookId = @BookId;
 End;
 
+---Procedure to deletebook
+create procedure spDeleteBook
+(
+@BookId int
+)
+as
+BEGIN
+Delete BookTable 
+where BookId = @BookId;
+End;
+
 -- create procedure to get all book 
 create procedure spGetAllBook
 as
 BEGIN
 	select * from BookTable;
 End;
+
+
+
+
