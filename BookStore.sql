@@ -119,4 +119,3 @@ BEGIN
 select * from BookTable
 where BookId = @BookId;
 End;
-
