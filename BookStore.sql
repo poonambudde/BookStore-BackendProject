@@ -109,6 +109,7 @@ values (@BookName, @AuthorName, @TotalRating, @RatingCount ,@OriginalPrice, @Dis
 );
 End;
 
+
 ---create procedure to getbookbybookid
 create procedure spGetBookByBookId
 (
@@ -118,13 +119,6 @@ as
 BEGIN
 select * from BookTable
 where BookId = @BookId;
-End;
-
--- create procedure to get all book 
-create procedure spGetAllBook
-as
-BEGIN
-	select * from BookTable;
 End;
 
 ---Procedure to deletebook
@@ -137,3 +131,14 @@ BEGIN
 Delete BookTable 
 where BookId = @BookId;
 End;
+
+-- create procedure to get all book 
+create procedure spGetAllBook
+as
+BEGIN
+	select * from BookTable;
+End;
+
+
+
+
