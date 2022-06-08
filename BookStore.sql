@@ -216,3 +216,14 @@ As
 Begin 
 Delete CartTable where CartId = @CartId
 End
+
+--create procedure to GetAllCart
+create procedure spGetAllBookinCart
+@UserId int
+As
+Begin
+select CartTable.CartId,CartTable.UserId,CartTable.BookId,CartTable.BooksQty,
+BookTable.BookName,BookTable.AuthorName,BookTable.TotalRating,BookTable.RatingCount,BookTable.OriginalPrice,BookTable.DiscountPrice,BookTable.BookDetails,BookTable.BookImage,BookTable.BookQuantity 
+from CartTable inner join BookTable on CartTable.BookId = BookTable.BookId
+where CartTable.UserId = @UserId
+End
