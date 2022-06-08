@@ -197,5 +197,6 @@ Begin
 Insert into CartTable (BooksQty,UserId,BookId) 
 values (@BooksQty,@UserId,@BookId);
 End;
+
 DROP PROCEDURE spAddCart;
 GO
