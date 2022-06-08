@@ -87,6 +87,8 @@ BookQuantity int
 
 select *from BookTable;
 
+DROP TABLE BookTable;
+
 ----stored procedures for Book Api
 ---procedured to add book
 create procedure SPAddBook
@@ -110,6 +112,7 @@ values (@BookName, @AuthorName, @TotalRating, @RatingCount ,@OriginalPrice, @Dis
 );
 End;
 
+
 ---create procedure to getbookbybookid
 create procedure spGetBookByBookId
 (
@@ -131,6 +134,7 @@ BEGIN
 Delete BookTable 
 where BookId = @BookId;
 End;
+
 
 --procedure to updatebook
 create procedure spUpdateBook
@@ -178,6 +182,8 @@ BookId int Foreign Key References BookTable(BookId)
 );
 
 select * from CartTable;
+
+DROP TABLE CartTable;
 
 ---create procedure to addcart-------------------
 create Procedure spAddCart
