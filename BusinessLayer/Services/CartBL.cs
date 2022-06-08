@@ -53,5 +53,17 @@ namespace BusinessLayer.Services
             }
         }
 
+        public List<CartModel> GetAllBooksinCart(int UserId)
+        {
+            try
+            {
+                return cartRL.GetAllBooksinCart(UserId);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }
