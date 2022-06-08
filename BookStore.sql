@@ -70,6 +70,7 @@ Password = @Password
 WHERE Email = @Email;
 End;
 
+
 ---Create book table
 create table BookTable(
 BookId int identity (1,1)primary key,
@@ -144,7 +145,6 @@ create procedure spUpdateBook
 @BookDetails varchar(255),
 @BookImage varchar(255),
 @BookQuantity int
-
 )
 as
 BEGIN
@@ -166,3 +166,30 @@ as
 BEGIN
 	select * from BookTable;
 End;
+
+
+---Create cart table------------------------------------
+create Table CartTable
+(
+CartId int primary key identity(1,1),
+BooksQty int,
+UserId int Foreign Key References Users(UserId),
+BookId int Foreign Key References BookTable(BookId)
+);
+
+select * from CartTable;
+
+---create procedure to addcart-------------------
+create Procedure spAddCart
+(
+@BooksQty int,
+@UserId int,
+@BookId int
+)
+As
+Begin
+Insert into CartTable (BooksQty,UserId,BookId) 
+values (@BooksQty,@UserId,@BookId);
+End;
+DROP PROCEDURE spAddCart;
+GO
