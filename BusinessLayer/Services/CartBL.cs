@@ -41,5 +41,17 @@ namespace BusinessLayer.Services
             }
         }
 
+        public string DeleteCart(int CartId)
+        {
+            try
+            {
+                return cartRL.DeleteCart(CartId);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }
