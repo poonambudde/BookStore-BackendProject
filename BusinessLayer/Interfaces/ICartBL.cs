@@ -8,5 +8,6 @@ namespace BusinessLayer.Interfaces
     public interface ICartBL
     {
         string AddBookToCart(AddToCart cartBook);
+        bool UpdateCart(int CartId, int BooksQty);
     }
 }

@@ -28,5 +28,18 @@ namespace BusinessLayer.Services
                 throw e;
             }
         }
+
+        public bool UpdateCart(int CartId, int BooksQty)
+        {
+            try
+            {
+                return cartRL.UpdateCart(CartId, BooksQty);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }

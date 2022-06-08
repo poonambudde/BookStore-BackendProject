@@ -193,3 +193,12 @@ values (@BooksQty,@UserId,@BookId);
 End;
 DROP PROCEDURE spAddCart;
 GO
+
+create procedure spUpdateCart
+@BooksQty int,
+@CartId int
+As
+Begin
+update CartTable set BooksQty = @BooksQty
+where CartId = @CartId
+End
