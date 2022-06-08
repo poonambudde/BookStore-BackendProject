@@ -16,7 +16,7 @@ namespace RepositoryLayer.Services
         {
             this.Configuration = configuration;
         }
-        private IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         public BookModel AddBook(BookModel book)
         {

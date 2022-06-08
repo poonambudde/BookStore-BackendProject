@@ -13,7 +13,6 @@ using RepositoryLayer;
 using RepositoryLayer.Interfaces;
 using RepositoryLayer.Services;
 using System;
-using System.Text;
 
 namespace BookStoreApp
 {
@@ -32,8 +31,12 @@ namespace BookStoreApp
             services.AddControllers();
             services.AddTransient<IUserRL, UserRL>();
             services.AddTransient<IUserBL, UserBL>();
+
             services.AddTransient<IBookBL, BookBL>();
             services.AddTransient<IBookRL, BookRL>();
+
+            services.AddTransient<ICartBL, CartBL>();
+            services.AddTransient<ICartRL, CartRL>();
 
             services.AddMvc();
 
