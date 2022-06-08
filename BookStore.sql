@@ -1,4 +1,4 @@
-----Create database
+---Create database
 create database BookStore;
 
 ---use bookstore database
@@ -16,7 +16,9 @@ MobileNumber bigint
 
 select * from Users;
 
-----stored procedures for User Api
+DROP TABLE Users;
+
+---stored procedures for User Api
 ---Create procedured for User Registration
 Create procedure spUserRegister       
 (        
@@ -43,7 +45,7 @@ select * from Users
 where Email = @Email and Password = @Password
 End;
 
----Create procedured for User Forgot Password---------------
+---Create procedured for User Forgot Password
 create procedure spUserForgotPassword
 (
 @Email varchar(Max)
@@ -87,7 +89,9 @@ BookQuantity int
 
 select *from BookTable;
 
-----stored procedures for Book Api
+DROP TABLE BookTable;
+
+---stored procedures for Book Api
 ---procedured to add book
 create procedure SPAddBook
 (
@@ -168,7 +172,7 @@ BEGIN
 End;
 
 
----Create cart table------------------------------------
+---Create cart table
 create Table CartTable
 (
 CartId int primary key identity(1,1),
@@ -179,7 +183,8 @@ BookId int Foreign Key References BookTable(BookId)
 
 select * from CartTable;
 
----create procedure to addcart-------------------
+DROP TABLE CartTable;
+---create procedure to addcart
 create Procedure spAddCart
 (
 @BooksQty int,
@@ -194,6 +199,7 @@ End;
 DROP PROCEDURE spAddCart;
 GO
 
+---create procedure to UpdateCart
 create procedure spUpdateCart
 @BooksQty int,
 @CartId int
@@ -201,4 +207,12 @@ As
 Begin
 update CartTable set BooksQty = @BooksQty
 where CartId = @CartId
+End
+
+---Create procedure to deletecart
+create procedure spDeleteCart
+@CartId int
+As
+Begin 
+Delete CartTable where CartId = @CartId
 End

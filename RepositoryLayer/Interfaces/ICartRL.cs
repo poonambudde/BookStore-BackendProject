@@ -10,5 +10,6 @@ namespace RepositoryLayer.Interfaces
         string AddBookToCart(AddToCart cartBook);
 
         bool UpdateCart(int CartId, int BooksQty);
+        string DeleteCart(int CartId);
     }
 }

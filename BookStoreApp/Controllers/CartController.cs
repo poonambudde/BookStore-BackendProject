@@ -50,13 +50,32 @@ namespace BookStoreApp.Controllers
                 {
                     return this.BadRequest(new { Status = false, Message = result });
                 }
-
             }
             catch (Exception e)
             {
                 throw e;
             }
+        }
 
+        [HttpDelete("deleteCart/{CartId}")]
+        public IActionResult DeleteCart(int CartId)
+        {
+            try
+            {
+                var result = this.cartBL.DeleteCart(CartId);
+                if (result.Equals("Book Deleted in Cart Successfully"))
+                {
+                    return this.Ok(new { success = true, message = $"Book in Cart deleted Successfully " });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = result });
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
     }

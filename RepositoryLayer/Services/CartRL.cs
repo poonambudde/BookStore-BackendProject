@@ -63,14 +63,39 @@ namespace RepositoryLayer.Services
                 sqlConnection.Open();
                 cmd.ExecuteScalar();
                 return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
+
+        public string DeleteCart(int CartId)
+        {
+            try
+            {
+                this.sqlConnection = new SqlConnection(this.Configuration["ConnectionString:Bookstore"]);
+                SqlCommand cmd = new SqlCommand("spDeleteCart", this.sqlConnection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.AddWithValue("@CartId", CartId);
+                sqlConnection.Open();
+                cmd.ExecuteScalar();
+                return "Book Deleted in Cart Successfully";
                 //int result = Convert.ToInt32(cmd.ExecuteScalar());
                 //if (result != 1)
                 //{
-                //    return true;
+                //    return "Book Deleted in Cart Successfully";
                 //}
                 //else
                 //{
-                //    return false;
+                //    return "Book is not Deleted";
                 //}
             }
             catch (Exception e)
@@ -81,6 +106,7 @@ namespace RepositoryLayer.Services
             {
                 sqlConnection.Close();
             }
+
         }
 
     }
