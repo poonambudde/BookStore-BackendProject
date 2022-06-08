@@ -48,5 +48,40 @@ namespace RepositoryLayer.Services
             }
         }
 
+        public bool UpdateCart(int CartId, int BooksQty)
+        {
+            try
+            {
+                this.sqlConnection = new SqlConnection(this.Configuration["ConnectionString:Bookstore"]);
+                SqlCommand cmd = new SqlCommand("spUpdateCart", this.sqlConnection)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+
+                cmd.Parameters.AddWithValue("@CartId", CartId);
+                cmd.Parameters.AddWithValue("@BooksQty", BooksQty);
+                sqlConnection.Open();
+                cmd.ExecuteScalar();
+                return true;
+                //int result = Convert.ToInt32(cmd.ExecuteScalar());
+                //if (result != 1)
+                //{
+                //    return true;
+                //}
+                //else
+                //{
+                //    return false;
+                //}
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
+
     }
 }

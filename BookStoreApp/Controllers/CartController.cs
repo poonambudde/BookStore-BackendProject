@@ -36,5 +36,28 @@ namespace BookStoreApp.Controllers
             }
         }
 
+        [HttpPut("updateCart/{CartId}")]
+        public IActionResult UpdateCart(int CartId, int BooksQty)
+        {
+            try
+            {
+                var result = this.cartBL.UpdateCart(CartId, BooksQty);
+                if (result.Equals(true))
+                {
+                    return this.Ok(new { success = true, message = $"Cart updated Successfully ", response = BooksQty });
+                }
+                else
+                {
+                    return this.BadRequest(new { Status = false, Message = result });
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
+
     }
 }
