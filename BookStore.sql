@@ -281,3 +281,4 @@ BookTable.BookName,BookTable.AuthorName,BookTable.TotalRating,BookTable.RatingCo
 from WishlistTable inner join BookTable on WishlistTable.BookId=BookTable.BookId
 where WishlistTable.userId=@UserId
 End
+
