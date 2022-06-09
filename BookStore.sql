@@ -233,13 +233,6 @@ from CartTable inner join BookTable on CartTable.BookId = BookTable.BookId
 where CartTable.UserId = @UserId
 End
 
---create procedure to GetAllCart
-create procedure spGetAllBooksinCart
-as
-BEGIN
-	select * from BookTable;
-End;
-
 
 
 ---create wishlist table
@@ -281,4 +274,3 @@ BookTable.BookName,BookTable.AuthorName,BookTable.TotalRating,BookTable.RatingCo
 from WishlistTable inner join BookTable on WishlistTable.BookId=BookTable.BookId
 where WishlistTable.userId=@UserId
 End
-
