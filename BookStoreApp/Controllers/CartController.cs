@@ -6,7 +6,7 @@ using System;
 namespace BookStoreApp.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class CartController : ControllerBase
     {
         private readonly ICartBL cartBL;
